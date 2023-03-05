@@ -1,6 +1,7 @@
 package boxapi
 
 import (
+	"context"
 	"net"
 
 	"github.com/sagernet/sing-box/adapter"
@@ -13,7 +14,7 @@ type SbV2rayServer struct {
 	ss *SbV2rayStatsService
 }
 
-func NewSbV2rayServer() adapter.V2RayServer {
+func NewSbV2rayServer() *SbV2rayServer {
 	options := option.V2RayStatsServiceOptions{
 		Enabled:   true,
 		Outbounds: []string{"proxy", "bypass"}, // TODO
@@ -26,6 +27,18 @@ func NewSbV2rayServer() adapter.V2RayServer {
 func (s *SbV2rayServer) Start() error                            { return nil }
 func (s *SbV2rayServer) Close() error                            { return nil }
 func (s *SbV2rayServer) StatsService() adapter.V2RayStatsService { return s.ss }
+
+func (s *SbV2rayServer) QueryStats(name string) int64 {
+	req := &v2rayapi.GetStatsRequest{
+		Name:   name,
+		Reset_: true,
+	}
+	resp, err := s.ss.GetStats(context.TODO(), req)
+	if err == nil {
+		return resp.Stat.Value
+	}
+	return 0
+}
 
 type SbV2rayStatsService struct {
 	*v2rayapi.StatsService

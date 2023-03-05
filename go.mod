@@ -5,7 +5,7 @@ go 1.19
 require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gofrs/uuid v4.4.0+incompatible
-	github.com/matsuridayo/libneko v0.0.0-20230304151533-23771f436e08
+	github.com/matsuridayo/libneko v0.0.0-20230305030237-4aefab71d5b4
 	github.com/sagernet/sing v0.1.8-0.20230301160041-9fab0a9f4304
 	github.com/sagernet/sing-box v1.1.6-0.20230301163156-e8802357e1e7
 	github.com/sagernet/sing-dns v0.1.4
