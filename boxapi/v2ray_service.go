@@ -14,11 +14,7 @@ type SbV2rayServer struct {
 	ss *SbV2rayStatsService
 }
 
-func NewSbV2rayServer() *SbV2rayServer {
-	options := option.V2RayStatsServiceOptions{
-		Enabled:   true,
-		Outbounds: []string{"proxy", "bypass"}, // TODO
-	}
+func NewSbV2rayServer(options option.V2RayStatsServiceOptions) *SbV2rayServer {
 	return &SbV2rayServer{
 		ss: &SbV2rayStatsService{v2rayapi.NewStatsService(options)},
 	}
