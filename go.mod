@@ -5,13 +5,14 @@ go 1.19
 require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gofrs/uuid v4.4.0+incompatible
-	github.com/matsuridayo/libneko v0.0.0-20230305061957-9c2b6bde8ab5
-	github.com/sagernet/sing v0.1.8-0.20230305055148-e16845727f76
-	github.com/sagernet/sing-box v1.1.6-0.20230305153712-ac7cc09694f3
+	github.com/matsuridayo/libneko v0.0.0-20230309081439-3f7ef5271639
+	github.com/sagernet/sing v0.1.8-0.20230307054559-0560a4da412b
+	github.com/sagernet/sing-box v1.1.6-0.20230308072346-87dd328700a3
 	github.com/sagernet/sing-dns v0.1.4
 	github.com/sagernet/sing-tun v0.1.2-0.20230226091124-0cdb0eed74d9
 	github.com/spf13/cobra v1.6.1
 	golang.org/x/sys v0.6.0
+	golang.org/x/tools v0.6.0
 )
 
 require (
@@ -58,7 +59,7 @@ require (
 	github.com/sagernet/reality v0.0.0-20230228045158-d3e085a8e5d1 // indirect
 	github.com/sagernet/sing-shadowsocks v0.1.2-0.20230221080503-769c01d6bba9 // indirect
 	github.com/sagernet/sing-shadowtls v0.1.0 // indirect
-	github.com/sagernet/sing-vmess v0.1.3-0.20230303082804-627cc46ae68b // indirect
+	github.com/sagernet/sing-vmess v0.1.3-0.20230307060529-d110e81a50bc // indirect
 	github.com/sagernet/smux v0.0.0-20220831015742-e0f1988e3195 // indirect
 	github.com/sagernet/tfo-go v0.0.0-20230303015439-ffcfd8c41cf9 // indirect
 	github.com/sagernet/utls v0.0.0-20230225061716-536a007c8b01 // indirect
@@ -78,7 +79,6 @@ require (
 	golang.org/x/net v0.8.0 // indirect
 	golang.org/x/text v0.8.0 // indirect
 	golang.org/x/time v0.0.0-20191024005414-555d28b269f0 // indirect
-	golang.org/x/tools v0.6.0 // indirect
 	google.golang.org/genproto v0.0.0-20230110181048-76db0878b65f // indirect
 	google.golang.org/grpc v1.53.0 // indirect
 	google.golang.org/protobuf v1.28.1 // indirect

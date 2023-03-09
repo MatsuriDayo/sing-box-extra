@@ -17,7 +17,9 @@ import (
 var underlyingDNS string
 
 func init() {
-	D.RegisterTransport([]string{"underlying"}, CreateUnderlyingTransport)
+	if runtime.GOOS != "android" {
+		D.RegisterTransport([]string{"underlying"}, CreateUnderlyingTransport)
+	}
 }
 
 func CreateUnderlyingTransport(ctx context.Context, logger logger.ContextLogger, dialer N.Dialer, link string) (D.Transport, error) {
