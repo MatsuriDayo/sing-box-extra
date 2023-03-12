@@ -36,10 +36,12 @@ type Box struct {
 	clashServer adapter.ClashServer
 	v2rayServer adapter.V2RayServer
 	done        chan struct{}
+	hk          *hooks.HookContextValue
 }
 
 func New(ctx context.Context, options option.Options, platformInterface platform.Interface) (*Box, error) {
-	ctx = hooks.HookCtx(ctx)
+	hk := &hooks.HookContextValue{}
+	ctx = context.WithValue(ctx, (*hooks.HookContextKey)(nil), hk)
 
 	createdAt := time.Now()
 	logOptions := common.PtrValueOrDefault(options.Log)
@@ -196,6 +198,7 @@ func New(ctx context.Context, options option.Options, platformInterface platform
 		clashServer: clashServer,
 		v2rayServer: v2rayServer,
 		done:        make(chan struct{}),
+		hk:          hk,
 	}, nil
 }
 

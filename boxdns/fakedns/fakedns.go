@@ -37,7 +37,9 @@ func CreateFakeDNSTransport(ctx context.Context, logger logger.ContextLogger, di
 	//
 	fe := &fakednsEngine{pool}
 	t := &fakednsTransport{fe}
-	hooks.Ctx(ctx).FakeEngine = fe // No router at this time
+	if c := hooks.Ctx(ctx); c != nil {
+		c.FakeEngine = fe // No router at this time
+	}
 	return t, nil
 }
 

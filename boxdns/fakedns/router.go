@@ -21,10 +21,11 @@ type RouterWithFakeIP struct {
 }
 
 func (r *RouterWithFakeIP) RouteConnection(ctx context.Context, conn net.Conn, metadata adapter.InboundContext) error {
-	if fe := hooks.Ctx(ctx).FakeEngine; fe != nil {
+	h := hooks.Ctx(ctx)
+	if h != nil && h.FakeEngine != nil {
 		ip := metadata.Destination.IPAddr().IP
-		if fe.IsIPInPool(ip) {
-			if d, err := fe.RestoreToDomain(ip); err == nil {
+		if h.FakeEngine.IsIPInPool(ip) {
+			if d, err := h.FakeEngine.RestoreToDomain(ip); err == nil {
 				metadata.Destination.Fqdn = d
 				metadata.Destination.Addr = netip.Addr{}
 			} else {
