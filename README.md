@@ -4,6 +4,12 @@ sing-box and some additional functionality or API
 
 ## Components
 
+see distro/all
+
+### boxbox
+
+Use this instead of Box
+
 ### boxapi
 
 - v2ray service API
@@ -12,7 +18,7 @@ sing-box and some additional functionality or API
 ### boxdns
 
 - underlying DNS for Linux & Windows
-- FakeDNS server (TODO)
+- FakeDNS server
 
 ### boxmain
 

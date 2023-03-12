@@ -4,26 +4,19 @@ import (
 	"context"
 	"net"
 	"net/http"
-	"reflect"
 	"time"
-	"unsafe"
 
-	box "github.com/sagernet/sing-box"
-	"github.com/sagernet/sing-box/adapter"
+	"github.com/matsuridayo/sing-box-extra/boxbox"
 	"github.com/sagernet/sing-box/common/dialer"
 	"github.com/sagernet/sing/common/metadata"
 	"github.com/sagernet/sing/common/network"
 )
 
-func GetProxyHttpClient(box *box.Box) *http.Client {
+func GetProxyHttpClient(box *boxbox.Box) *http.Client {
 	var d network.Dialer
 
 	if box != nil {
-		router_ := reflect.Indirect(reflect.ValueOf(box)).FieldByName("router")
-		router_ = reflect.NewAt(router_.Type(), unsafe.Pointer(router_.UnsafeAddr())).Elem()
-		if router, ok := router_.Interface().(adapter.Router); ok {
-			d = dialer.NewRouter(router)
-		}
+		d = dialer.NewRouter(box.Router())
 	}
 
 	dialContext := func(ctx context.Context, network, addr string) (net.Conn, error) {

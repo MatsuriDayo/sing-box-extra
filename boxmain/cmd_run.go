@@ -9,8 +9,8 @@ import (
 	"syscall"
 
 	"github.com/matsuridayo/libneko/protect_server"
+	"github.com/matsuridayo/sing-box-extra/boxbox"
 
-	box "github.com/sagernet/sing-box"
 	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	E "github.com/sagernet/sing/common/exceptions"
@@ -24,7 +24,7 @@ var commandRun = &cobra.Command{
 	Run: func(cmd *cobra.Command, args []string) {
 		if protectListenPath != "" {
 			// for v2ray now
-			go protect_server.ServeProtect(protectListenPath, protectFwMark)
+			go protect_server.ServeProtect(protectListenPath, true, protectFwMark, nil)
 		}
 
 		err := run()
@@ -63,7 +63,7 @@ func readConfig(nekoConfigContent []byte) (option.Options, error) {
 	return options, nil
 }
 
-func Create(nekoConfigContent []byte, forceDisableColor bool) (*box.Box, context.CancelFunc, error) {
+func Create(nekoConfigContent []byte, forceDisableColor bool) (*boxbox.Box, context.CancelFunc, error) {
 	options, err := readConfig(nekoConfigContent)
 	if err != nil {
 		return nil, nil, err
@@ -75,7 +75,7 @@ func Create(nekoConfigContent []byte, forceDisableColor bool) (*box.Box, context
 		options.Log.DisableColor = true
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	instance, err := box.New(ctx, options, nil)
+	instance, err := boxbox.New(ctx, options, nil)
 	if err != nil {
 		cancel()
 		return nil, nil, E.Cause(err, "create service")
