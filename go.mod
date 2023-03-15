@@ -6,12 +6,12 @@ require (
 	github.com/Dreamacro/clash v1.13.0
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gofrs/uuid v4.4.0+incompatible
-	github.com/matsuridayo/libneko v0.0.0-20230309081439-3f7ef5271639
+	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
 	github.com/miekg/dns v1.1.51
 	github.com/sagernet/sing v0.1.8
 	github.com/sagernet/sing-box v1.1.6-0.20230310031500-3688f2e114a0
 	github.com/sagernet/sing-dns v0.1.4
-	github.com/sagernet/sing-tun v0.1.2
+	github.com/sagernet/sing-tun v0.1.3-0.20230313113643-839f1792e46c
 	github.com/spf13/cobra v1.6.1
 	golang.org/x/sys v0.6.0
 	golang.org/x/tools v0.6.0

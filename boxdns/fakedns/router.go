@@ -8,6 +8,7 @@ import (
 
 	"github.com/matsuridayo/sing-box-extra/hooks"
 	"github.com/sagernet/sing-box/adapter"
+	"github.com/sagernet/sing/common/network"
 )
 
 func init() {
@@ -34,4 +35,15 @@ func (r *RouterWithFakeIP) RouteConnection(ctx context.Context, conn net.Conn, m
 		}
 	}
 	return r.Router.RouteConnection(ctx, conn, metadata)
+}
+
+func (r *RouterWithFakeIP) RoutePacketConnection(ctx context.Context, conn network.PacketConn, metadata adapter.InboundContext) error {
+	h := hooks.Ctx(ctx)
+	if h != nil && h.FakeEngine != nil {
+		ip := metadata.Destination.IPAddr().IP
+		if h.FakeEngine.IsIPInPool(ip) {
+			return fmt.Errorf("attempt to use fakeip udp")
+		}
+	}
+	return r.Router.RoutePacketConnection(ctx, conn, metadata)
 }
