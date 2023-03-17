@@ -20,6 +20,10 @@ Use this instead of Box
 - underlying DNS for Linux & Windows
 - FakeDNS server
 
+### boxroute
+
+Custom Router
+
 ### boxmain
 
 CLI tools
