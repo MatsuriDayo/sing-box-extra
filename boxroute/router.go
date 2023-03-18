@@ -29,6 +29,7 @@ func (r *Router) RouteConnection(ctx context.Context, conn net.Conn, metadata ad
 		ip := metadata.Destination.IPAddr().IP
 		if h.FakeEngine.IsIPInPool(ip) {
 			if d, err := h.FakeEngine.RestoreToDomain(ip); err == nil {
+				metadata.User = "fakedns"
 				metadata.Destination.Fqdn = d
 				metadata.Destination.Addr = netip.Addr{}
 			} else {
@@ -45,9 +46,10 @@ func (r *Router) RoutePacketConnection(ctx context.Context, conn network.PacketC
 		ip := metadata.Destination.IPAddr().IP
 		if h.FakeEngine.IsIPInPool(ip) {
 			if d, err := h.FakeEngine.RestoreToDomain(ip); err == nil {
-				metadata.InboundOptions.DomainStrategy = option.DomainStrategy(dns.DomainStrategyUseIPv4)
+				metadata.User = "fakedns"
 				metadata.Destination.Fqdn = d
 				metadata.Destination.Addr = netip.Addr{}
+				metadata.InboundOptions.DomainStrategy = option.DomainStrategy(dns.DomainStrategyUseIPv4)
 			} else {
 				return fmt.Errorf("fakeip RestoreToDomain failed: %v", err)
 			}

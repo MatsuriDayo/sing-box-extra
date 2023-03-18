@@ -18,7 +18,7 @@ Use this instead of Box
 ### boxdns
 
 - underlying DNS for Linux & Windows
-- FakeDNS server
+- FakeDNS server (Note: The `auth_user` will be set to `fakedns` for fakeIP connections. When must query the real IP (e.g. Wireguard), please add rules containing this attribute to correctly finish the necessary DNS query.)
 
 ### boxroute
 

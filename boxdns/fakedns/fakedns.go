@@ -29,7 +29,6 @@ func CreateFakeDNSTransport(ctx context.Context, logger logger.ContextLogger, di
 	pool, err := fakeip.New(fakeip.Options{
 		IPNet: ipnet,
 		Size:  1000,
-		Host:  nil, // TODO "fakeip-filter"
 	})
 	if err != nil {
 		return nil, fmt.Errorf("create fakeip pool: %v", err)
