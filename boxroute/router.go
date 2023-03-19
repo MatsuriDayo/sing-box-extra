@@ -8,8 +8,6 @@ import (
 
 	"github.com/matsuridayo/sing-box-extra/hooks"
 	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/option"
-	dns "github.com/sagernet/sing-dns"
 	"github.com/sagernet/sing/common/network"
 )
 
@@ -45,14 +43,8 @@ func (r *Router) RoutePacketConnection(ctx context.Context, conn network.PacketC
 	if h != nil && h.FakeEngine != nil {
 		ip := metadata.Destination.IPAddr().IP
 		if h.FakeEngine.IsIPInPool(ip) {
-			if d, err := h.FakeEngine.RestoreToDomain(ip); err == nil {
-				metadata.User = "fakedns"
-				metadata.Destination.Fqdn = d
-				metadata.Destination.Addr = netip.Addr{}
-				metadata.InboundOptions.DomainStrategy = option.DomainStrategy(dns.DomainStrategyUseIPv4)
-			} else {
-				return fmt.Errorf("fakeip RestoreToDomain failed: %v", err)
-			}
+			//attempt to use fakeip udp
+			return nil
 		}
 	}
 	return r.Router.RoutePacketConnection(ctx, conn, metadata)
