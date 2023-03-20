@@ -26,12 +26,15 @@ func init() {
 }
 
 func check() error {
-	options, err := readConfig(nil)
+	options, err := readConfigAndMerge()
 	if err != nil {
 		return err
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	_, err = boxbox.New(ctx, options, nil)
+	instance, err := boxbox.New(ctx, options, nil)
+	if err == nil {
+		instance.Close()
+	}
 	cancel()
 	return err
 }

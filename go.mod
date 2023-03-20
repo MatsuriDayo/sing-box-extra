@@ -3,18 +3,19 @@ module github.com/matsuridayo/sing-box-extra
 go 1.19
 
 require (
-	github.com/Dreamacro/clash v1.13.0
+	github.com/Dreamacro/clash v1.14.0
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
 	github.com/miekg/dns v1.1.52
-	github.com/sagernet/sing v0.1.9-0.20230317044231-85a9429eadb6
-	github.com/sagernet/sing-box v1.1.6-0.20230317050722-ce6d18634525
+	github.com/sagernet/sing v0.2.1-0.20230318094614-4bbf5f2c3046
+	github.com/sagernet/sing-box v1.1.6-0.20230320093659-f680d0acaf15
 	github.com/sagernet/sing-dns v0.1.4
 	github.com/sagernet/sing-tun v0.1.3-0.20230315134716-fe89bbded22d
 	github.com/spf13/cobra v1.6.1
 	golang.org/x/sys v0.6.0
 	golang.org/x/tools v0.6.0
+	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20230215201556-9c5414ab4bde
 )
 
 require (
@@ -56,7 +57,7 @@ require (
 	github.com/sagernet/netlink v0.0.0-20220905062125-8043b4a9aa97 // indirect
 	github.com/sagernet/quic-go v0.0.0-20230202071646-a8c8afb18b32 // indirect
 	github.com/sagernet/reality v0.0.0-20230312150606-35ea9af0e0b8 // indirect
-	github.com/sagernet/sing-shadowsocks v0.1.2-0.20230221080503-769c01d6bba9 // indirect
+	github.com/sagernet/sing-shadowsocks v0.2.0 // indirect
 	github.com/sagernet/sing-shadowtls v0.1.0 // indirect
 	github.com/sagernet/sing-vmess v0.1.3 // indirect
 	github.com/sagernet/smux v0.0.0-20230312102458-337ec2a5af37 // indirect

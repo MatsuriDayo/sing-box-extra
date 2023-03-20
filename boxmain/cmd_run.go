@@ -5,12 +5,15 @@ import (
 	"io"
 	"os"
 	"os/signal"
+	"path/filepath"
 	runtimeDebug "runtime/debug"
+	"sort"
+	"strings"
 	"syscall"
 
 	"github.com/matsuridayo/libneko/protect_server"
 	"github.com/matsuridayo/sing-box-extra/boxbox"
-
+	"github.com/sagernet/sing-box/common/badjsonmerge"
 	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	E "github.com/sagernet/sing/common/exceptions"
@@ -26,7 +29,6 @@ var commandRun = &cobra.Command{
 			// for v2ray now
 			go protect_server.ServeProtect(protectListenPath, true, protectFwMark, nil)
 		}
-
 		err := run()
 		if err != nil {
 			log.Fatal(err)
@@ -38,37 +40,100 @@ func init() {
 	mainCommand.AddCommand(commandRun)
 }
 
-func readConfig(nekoConfigContent []byte) (option.Options, error) {
+type OptionsEntry struct {
+	content []byte
+	path    string
+	options option.Options
+}
+
+func readConfigAt(path string) (*OptionsEntry, error) {
 	var (
 		configContent []byte
 		err           error
 	)
-	if nekoConfigContent == nil {
-		if configPath == "stdin" {
-			configContent, err = io.ReadAll(os.Stdin)
-		} else {
-			configContent, err = os.ReadFile(configPath)
-		}
+	if path == "stdin" {
+		configContent, err = io.ReadAll(os.Stdin)
 	} else {
-		configContent = nekoConfigContent
+		configContent, err = os.ReadFile(path)
 	}
 	if err != nil {
-		return option.Options{}, E.Cause(err, "read config")
+		return nil, E.Cause(err, "read config at ", path)
 	}
 	var options option.Options
 	err = options.UnmarshalJSON(configContent)
 	if err != nil {
-		return option.Options{}, E.Cause(err, "decode config")
+		return nil, E.Cause(err, "decode config at ", path)
 	}
-	return options, nil
+	return &OptionsEntry{
+		content: configContent,
+		path:    path,
+		options: options,
+	}, nil
 }
 
-func Create(nekoConfigContent []byte, forceDisableColor bool) (*boxbox.Box, context.CancelFunc, error) {
-	options, err := readConfig(nekoConfigContent)
+func readConfig() ([]*OptionsEntry, error) {
+	var optionsList []*OptionsEntry
+	for _, path := range configPaths {
+		optionsEntry, err := readConfigAt(path)
+		if err != nil {
+			return nil, err
+		}
+		optionsList = append(optionsList, optionsEntry)
+	}
+	for _, directory := range configDirectories {
+		entries, err := os.ReadDir(directory)
+		if err != nil {
+			return nil, E.Cause(err, "read config directory at ", directory)
+		}
+		for _, entry := range entries {
+			if !strings.HasSuffix(entry.Name(), ".json") || entry.IsDir() {
+				continue
+			}
+			optionsEntry, err := readConfigAt(filepath.Join(directory, entry.Name()))
+			if err != nil {
+				return nil, err
+			}
+			optionsList = append(optionsList, optionsEntry)
+		}
+	}
+	sort.Slice(optionsList, func(i, j int) bool {
+		return optionsList[i].path < optionsList[j].path
+	})
+	return optionsList, nil
+}
+
+func readConfigAndMerge() (option.Options, error) {
+	optionsList, err := readConfig()
+	if err != nil {
+		return option.Options{}, err
+	}
+	if len(optionsList) == 1 {
+		return optionsList[0].options, nil
+	}
+	var mergedOptions option.Options
+	for _, options := range optionsList {
+		mergedOptions, err = badjsonmerge.MergeOptions(options.options, mergedOptions)
+		if err != nil {
+			return option.Options{}, E.Cause(err, "merge config at ", options.path)
+		}
+	}
+	return mergedOptions, nil
+}
+
+func Create(nekoConfigContent []byte) (*boxbox.Box, context.CancelFunc, error) {
+	var options option.Options
+	var err error
+	//
+	if nekoConfigContent == nil {
+		options, err = readConfigAndMerge()
+	} else {
+		err = options.UnmarshalJSON(nekoConfigContent)
+	}
 	if err != nil {
 		return nil, nil, err
 	}
-	if disableColor || forceDisableColor {
+	//
+	if disableColor {
 		if options.Log == nil {
 			options.Log = &option.LogOptions{}
 		}
@@ -80,6 +145,7 @@ func Create(nekoConfigContent []byte, forceDisableColor bool) (*boxbox.Box, cont
 		cancel()
 		return nil, nil, E.Cause(err, "create service")
 	}
+
 	osSignals := make(chan os.Signal, 1)
 	signal.Notify(osSignals, os.Interrupt, syscall.SIGTERM, syscall.SIGHUP)
 	defer func() {
@@ -106,7 +172,7 @@ func run() error {
 	signal.Notify(osSignals, os.Interrupt, syscall.SIGTERM, syscall.SIGHUP)
 	defer signal.Stop(osSignals)
 	for {
-		instance, cancel, err := Create(nil, false)
+		instance, cancel, err := Create(nil)
 		if err != nil {
 			return err
 		}
