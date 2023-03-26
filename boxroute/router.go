@@ -28,6 +28,7 @@ func (r *Router) RouteConnection(ctx context.Context, conn net.Conn, metadata ad
 		if h.FakeEngine.IsIPInPool(ip) {
 			if d, err := h.FakeEngine.RestoreToDomain(ip); err == nil {
 				metadata.User = "fakedns"
+				metadata.OriginDestination = metadata.Destination
 				metadata.Destination.Fqdn = d
 				metadata.Destination.Addr = netip.Addr{}
 			} else {
