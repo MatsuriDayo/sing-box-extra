@@ -8,9 +8,9 @@ require (
 	github.com/gofrs/uuid v4.4.0+incompatible
 	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
 	github.com/miekg/dns v1.1.53
-	github.com/sagernet/sing v0.2.1
-	github.com/sagernet/sing-box v1.2.2-0.20230331082908-4db7eb9d9e78
-	github.com/sagernet/sing-dns v0.1.5-0.20230331013337-06044a57b1da
+	github.com/sagernet/sing v0.2.2-0.20230402035613-6d63c1a7dca5
+	github.com/sagernet/sing-box v1.2.3-0.20230402040603-f8be48401998
+	github.com/sagernet/sing-dns v0.1.5-0.20230402033314-a752be02978d
 	github.com/sagernet/sing-tun v0.1.4-0.20230326080954-8848c0e4cbab
 	github.com/spf13/cobra v1.6.1
 	golang.org/x/sys v0.6.0
