@@ -8,9 +8,9 @@ import (
 
 	"github.com/matsuridayo/sing-box-extra/boxbox"
 
-	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing/common"
+	"github.com/sagernet/sing-box/common/dialer"
 	"github.com/sagernet/sing/common/metadata"
+	N "github.com/sagernet/sing/common/network"
 )
 
 func GetProxyHttpClient(box *boxbox.Box) *http.Client {
@@ -21,16 +21,15 @@ func GetProxyHttpClient(box *boxbox.Box) *http.Client {
 
 	if box != nil {
 		transport.DialContext = func(ctx context.Context, network, addr string) (net.Conn, error) {
-			down, up := net.Pipe()
-			// stats is in RouteConnection
-			go func() {
-				box.Router().RouteConnection(ctx, up, adapter.InboundContext{
-					Inbound:     "go-http",
-					Destination: metadata.ParseSocksaddr(addr),
-				})
-				common.Close(down, up)
-			}()
-			return down, nil
+			router := box.Router()
+			conn, err := dialer.NewRouter(router).DialContext(ctx, network, metadata.ParseSocksaddr(addr))
+			if err != nil {
+				return nil, err
+			}
+			if ss, ok := router.V2RayServer().StatsService().(*SbStatsService); ok {
+				conn = ss.RoutedConnectionInternal("", router.DefaultOutbound(N.NetworkName(network)).Tag(), "", conn, false)
+			}
+			return conn, nil
 		}
 	}
 
