@@ -26,8 +26,10 @@ func GetProxyHttpClient(box *boxbox.Box) *http.Client {
 			if err != nil {
 				return nil, err
 			}
-			if ss, ok := router.V2RayServer().StatsService().(*SbStatsService); ok {
-				conn = ss.RoutedConnectionInternal("", router.DefaultOutbound(N.NetworkName(network)).Tag(), "", conn, false)
+			if vs := router.V2RayServer(); vs != nil {
+				if ss, ok := vs.StatsService().(*SbStatsService); ok {
+					conn = ss.RoutedConnectionInternal("", router.DefaultOutbound(N.NetworkName(network)).Tag(), "", conn, false)
+				}
 			}
 			return conn, nil
 		}
