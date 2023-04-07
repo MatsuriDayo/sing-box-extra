@@ -140,7 +140,10 @@ func Create(nekoConfigContent []byte) (*boxbox.Box, context.CancelFunc, error) {
 		options.Log.DisableColor = true
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	instance, err := boxbox.New(ctx, options, nil)
+	instance, err := boxbox.New(boxbox.Options{
+		Context: ctx,
+		Options: options,
+	})
 	if err != nil {
 		cancel()
 		return nil, nil, E.Cause(err, "create service")

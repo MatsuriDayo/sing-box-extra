@@ -31,7 +31,10 @@ func check() error {
 		return err
 	}
 	ctx, cancel := context.WithCancel(context.Background())
-	instance, err := boxbox.New(ctx, options, nil)
+	instance, err := boxbox.New(boxbox.Options{
+		Context: ctx,
+		Options: options,
+	})
 	if err == nil {
 		instance.Close()
 	}

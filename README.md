@@ -22,11 +22,13 @@ Custom Box
 
 Use this instead of `github.com/sagernet/sing-box`
 
+`boxbox.New(Options,PlatformOptions)` is used in `libgojni.so`
+
 ### boxmain
 
 Custom CLI tools
 
-Creates `boxbox.Box` instead of `box.Box`
+`boxmain.Create(jsonContent)` creates `boxbox.Box` instead of `box.Box` (used in `nekobox_core`)
 
 ### boxroute
 
