@@ -1,3 +1,5 @@
+//go:build !android
+
 package boxdns
 
 import (
@@ -17,18 +19,16 @@ import (
 var underlyingDNS string
 
 func init() {
-	if runtime.GOOS != "android" {
-		D.RegisterTransport([]string{"underlying"}, CreateUnderlyingTransport)
-	}
+	D.RegisterTransport([]string{"underlying"}, createUnderlyingTransport)
 }
 
-func CreateUnderlyingTransport(ctx context.Context, logger logger.ContextLogger, dialer N.Dialer, link string) (D.Transport, error) {
+func createUnderlyingTransport(name string, ctx context.Context, logger logger.ContextLogger, dialer N.Dialer, link string) (D.Transport, error) {
 	if runtime.GOOS != "windows" {
 		// Linux no resolv.conf change
-		return D.CreateLocalTransport(ctx, logger, dialer, "local")
+		return D.CreateLocalTransport(name, ctx, logger, dialer, "local")
 	}
 	// Windows Underlying DNS hook
-	t, _ := D.CreateUDPTransport(ctx, logger, dialer, link)
+	t, _ := D.CreateUDPTransport(name, ctx, logger, dialer, link)
 	udp := t.(*D.UDPTransport)
 	handler_ := reflect.Indirect(reflect.ValueOf(udp)).FieldByName("handler")
 	handler_ = reflect.NewAt(handler_.Type(), unsafe.Pointer(handler_.UnsafeAddr())).Elem()

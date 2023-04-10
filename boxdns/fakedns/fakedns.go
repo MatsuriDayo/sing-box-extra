@@ -16,10 +16,10 @@ import (
 )
 
 func init() {
-	D.RegisterTransport([]string{"fakedns"}, CreateFakeDNSTransport)
+	D.RegisterTransport([]string{"fakedns"}, createFakeDNSTransport)
 }
 
-func CreateFakeDNSTransport(ctx context.Context, logger logger.ContextLogger, dialer N.Dialer, link string) (D.Transport, error) {
+func createFakeDNSTransport(name string, ctx context.Context, logger logger.ContextLogger, dialer N.Dialer, link string) (D.Transport, error) {
 	link = strings.TrimPrefix(link, "fakedns://")
 	_, ipnet, err := net.ParseCIDR(link)
 	if err != nil {
@@ -35,7 +35,7 @@ func CreateFakeDNSTransport(ctx context.Context, logger logger.ContextLogger, di
 	}
 	//
 	fe := &fakednsEngine{pool}
-	t := &fakednsTransport{fe}
+	t := &fakednsTransport{name, fe}
 	if c := hooks.Ctx(ctx); c != nil {
 		c.FakeEngine = fe // No router at this time
 	}
@@ -43,9 +43,11 @@ func CreateFakeDNSTransport(ctx context.Context, logger logger.ContextLogger, di
 }
 
 type fakednsTransport struct {
-	fe *fakednsEngine
+	name string
+	fe   *fakednsEngine
 }
 
+func (t *fakednsTransport) Name() string { return t.name }
 func (t *fakednsTransport) Start() error { return nil }
 func (t *fakednsTransport) Close() error { return nil }
 func (t *fakednsTransport) Raw() bool    { return false }

@@ -9,8 +9,8 @@ require (
 	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
 	github.com/miekg/dns v1.1.53
 	github.com/sagernet/sing v0.2.2-0.20230407053809-308e421e33c2
-	github.com/sagernet/sing-box v1.2.3
-	github.com/sagernet/sing-dns v0.1.5-0.20230407055526-2a27418e7855
+	github.com/sagernet/sing-box v1.2.4-0.20230408011350-68439705360e
+	github.com/sagernet/sing-dns v0.1.5-0.20230408004833-5adaf486d440
 	github.com/sagernet/sing-tun v0.1.4-0.20230326080954-8848c0e4cbab
 	github.com/spf13/cobra v1.7.0
 	go.uber.org/atomic v1.10.0
