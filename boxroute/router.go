@@ -8,6 +8,7 @@ import (
 
 	"github.com/matsuridayo/sing-box-extra/hooks"
 	"github.com/sagernet/sing-box/adapter"
+	dns "github.com/sagernet/sing-dns"
 	"github.com/sagernet/sing/common/network"
 )
 
@@ -49,4 +50,17 @@ func (r *Router) RoutePacketConnection(ctx context.Context, conn network.PacketC
 		}
 	}
 	return r.Router.RoutePacketConnection(ctx, conn, metadata)
+}
+
+func (r *Router) Lookup(ctx context.Context, domain string, strategy dns.DomainStrategy) ([]netip.Addr, error) {
+	ctx, metadata := adapter.AppendContext(ctx)
+	if metadata.User == "fakedns" && hooks.TransportNameFromContext(ctx) != "" {
+		// avoid dns loopback
+		metadata.User = ""
+	}
+	return r.Router.Lookup(ctx, domain, strategy)
+}
+
+func (r *Router) LookupDefault(ctx context.Context, domain string) ([]netip.Addr, error) {
+	return r.Lookup(ctx, domain, dns.DomainStrategyAsIS)
 }
