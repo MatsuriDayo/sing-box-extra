@@ -132,7 +132,19 @@ func New(options Options) (*Box, error) {
 			return nil, E.Cause(err, "parse outbound[", i, "]")
 		}
 		outbounds = append(outbounds, out)
+		//
+		if block, ok := out.(*outbound.Block); ok {
+			hk.BlockOut = block
+		}
+		//
 	}
+	//
+	if hk.BlockOut == nil {
+		out, oErr := outbound.New(ctx, router, logFactory.NewLogger("outbound/block"), "block", option.Outbound{Type: "block"})
+		common.Must(oErr)
+		hk.BlockOut = out
+	}
+	//
 	err = router.Initialize(inbounds, outbounds, func() adapter.Outbound {
 		out, oErr := outbound.New(ctx, router, logFactory.NewLogger("outbound/direct"), "direct", option.Outbound{Type: "direct", Tag: "default"})
 		common.Must(oErr)

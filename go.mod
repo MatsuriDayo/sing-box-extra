@@ -6,11 +6,11 @@ require (
 	github.com/Dreamacro/clash v1.15.0
 	github.com/dustin/go-humanize v1.0.1
 	github.com/gofrs/uuid v4.4.0+incompatible
-	github.com/matsuridayo/libneko v0.0.0-20230315005352-9d7e3f3a79d1
+	github.com/matsuridayo/libneko v1.0.0 // replaced
 	github.com/miekg/dns v1.1.53
 	github.com/sagernet/sing v0.2.3
-	github.com/sagernet/sing-box v1.2.4
-	github.com/sagernet/sing-dns v0.1.5-0.20230415085626-111ecf799dfc
+	github.com/sagernet/sing-box v1.0.0 // replaced
+	github.com/sagernet/sing-dns v1.0.0 // replaced
 	github.com/sagernet/sing-tun v0.1.4-0.20230326080954-8848c0e4cbab
 	github.com/spf13/cobra v1.7.0
 	golang.org/x/sys v0.7.0
@@ -87,6 +87,8 @@ require (
 	lukechampine.com/blake3 v1.1.7 // indirect
 )
 
-// replace libneko => ../libneko
+replace github.com/matsuridayo/libneko v1.0.0 => ../libneko
 
-// replace github.com/sagernet/sing-box => ../sing-box
+replace github.com/sagernet/sing-box v1.0.0 => ../sing-box
+
+replace github.com/sagernet/sing-dns v1.0.0 => ../sing-dns

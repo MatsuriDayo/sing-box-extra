@@ -45,8 +45,8 @@ func (r *Router) RoutePacketConnection(ctx context.Context, conn network.PacketC
 	if h != nil && h.FakeEngine != nil {
 		ip := metadata.Destination.IPAddr().IP
 		if h.FakeEngine.IsIPInPool(ip) {
-			//attempt to use fakeip udp
-			return nil
+			// attempt to use fakeip udp => blackhole
+			return h.BlockOut.NewPacketConnection(ctx, conn, metadata)
 		}
 	}
 	return r.Router.RoutePacketConnection(ctx, conn, metadata)
