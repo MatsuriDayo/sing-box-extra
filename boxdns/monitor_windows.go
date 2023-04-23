@@ -10,7 +10,7 @@ import (
 
 	tun "github.com/sagernet/sing-tun"
 
-	"github.com/gofrs/uuid"
+	"github.com/gofrs/uuid/v5"
 	"golang.org/x/sys/windows/registry"
 )
 
