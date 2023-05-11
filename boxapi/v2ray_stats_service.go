@@ -7,9 +7,9 @@ import (
 	"time"
 
 	"github.com/sagernet/sing-box/adapter"
-	"github.com/sagernet/sing-box/experimental/trackerconn"
 	"github.com/sagernet/sing-box/option"
 	"github.com/sagernet/sing/common/atomic"
+	"github.com/sagernet/sing/common/bufio"
 	E "github.com/sagernet/sing/common/exceptions"
 	N "github.com/sagernet/sing/common/network"
 )
@@ -80,9 +80,9 @@ func (s *SbStatsService) RoutedConnectionInternal(inbound string, outbound strin
 	}
 	s.access.Unlock()
 	if directIn {
-		conn = trackerconn.New(conn, readCounter, writeCounter)
+		conn = bufio.NewInt64CounterConn(conn, readCounter, writeCounter)
 	} else {
-		conn = trackerconn.New(conn, writeCounter, readCounter)
+		conn = bufio.NewInt64CounterConn(conn, writeCounter, readCounter)
 	}
 	return conn
 }
@@ -110,7 +110,7 @@ func (s *SbStatsService) RoutedPacketConnection(inbound string, outbound string,
 		writeCounter = append(writeCounter, s.loadOrCreateCounter("user>>>"+user+">>>traffic>>>downlink"))
 	}
 	s.access.Unlock()
-	return trackerconn.NewPacket(conn, readCounter, writeCounter)
+	return bufio.NewInt64CounterPacketConn(conn, readCounter, writeCounter)
 }
 
 func (s *SbStatsService) GetStats(ctx context.Context, name string, reset bool) (int64, error) {
