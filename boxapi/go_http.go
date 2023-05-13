@@ -13,7 +13,7 @@ import (
 	N "github.com/sagernet/sing/common/network"
 )
 
-func GetProxyHttpClient(box *boxbox.Box) *http.Client {
+func CreateProxyHttpClient(box *boxbox.Box) *http.Client {
 	transport := &http.Transport{
 		TLSHandshakeTimeout:   time.Second * 3,
 		ResponseHeaderTimeout: time.Second * 3,

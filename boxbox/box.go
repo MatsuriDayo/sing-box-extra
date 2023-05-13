@@ -52,6 +52,7 @@ func New(options Options) (*Box, error) {
 	//
 	hk := &hooks.HookContextValue{}
 	ctx = context.WithValue(ctx, (*hooks.HookContextKey)(nil), hk)
+	hk.Context = ctx
 	//
 
 	createdAt := time.Now()

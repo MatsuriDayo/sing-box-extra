@@ -12,6 +12,7 @@ import (
 type HookContextKey struct{}
 
 type HookContextValue struct {
+	Context    context.Context
 	Router     *routerPrivateWrapper
 	FakeEngine adapter.FakeDnsEngineI // TODO multi or v6
 	BlockOut   adapter2.Outbound
