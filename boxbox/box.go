@@ -300,7 +300,10 @@ func (s *Box) Close() error {
 	default:
 		close(s.done)
 	}
-	s.closeClashApi() //
+	// Close() may timeout, close early to prevent listen port
+	s.closeClashApi()
+	s.logger.Trace("closeInboundListeners:", s.closeInboundListeners())
+	//
 	var errors error
 	for serviceName, service := range s.postServices {
 		s.logger.Trace("closing ", serviceName)
