@@ -8,7 +8,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/matsuridayo/libneko v1.0.0 // replaced
 	github.com/miekg/dns v1.1.54
-	github.com/sagernet/sing v0.2.5-0.20230611070640-2812461739c3
+	github.com/sagernet/sing v0.2.5-0.20230613142554-a3b120b25eab
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.5-0.20230426113254-25d948c44223
 	github.com/sagernet/sing-tun v0.1.5-0.20230611140633-41b2639e1385
