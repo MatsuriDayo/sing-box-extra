@@ -5,3 +5,4 @@
 /sing-box*
 *.json
 /test
+*.db
