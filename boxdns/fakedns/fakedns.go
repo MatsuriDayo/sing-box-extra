@@ -37,6 +37,9 @@ func createFakeDNSTransport(name string, ctx context.Context, logger logger.Cont
 	fe := &fakednsEngine{pool}
 	t := &fakednsTransport{name, fe}
 	if c := hooks.Ctx(ctx); c != nil {
+		if c.FakeEngine != nil {
+			return nil, fmt.Errorf("can only contain one fakedns server")
+		}
 		c.FakeEngine = fe // No router at this time
 	}
 	return t, nil

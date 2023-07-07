@@ -1,5 +1,5 @@
 package boxbox
 
 func Version() string {
-	return "1.3.0-2"
+	return "1.3.1-b1"
 }
