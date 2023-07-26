@@ -8,7 +8,6 @@ import (
 	"runtime/debug"
 	"time"
 
-	"github.com/matsuridayo/sing-box-extra/hooks"
 	"github.com/sagernet/sing-box/adapter"
 	"github.com/sagernet/sing-box/experimental"
 	"github.com/sagernet/sing-box/experimental/libbox/platform"
@@ -34,7 +33,6 @@ type Box struct {
 	preServices  map[string]adapter.Service
 	postServices map[string]adapter.Service
 	done         chan struct{}
-	hk           *hooks.HookContextValue
 }
 
 type Options struct {
@@ -48,12 +46,6 @@ func New(options Options) (*Box, error) {
 	if ctx == nil {
 		ctx = context.Background()
 	}
-
-	//
-	hk := &hooks.HookContextValue{}
-	ctx = context.WithValue(ctx, (*hooks.HookContextKey)(nil), hk)
-	hk.Context = ctx
-	//
 
 	createdAt := time.Now()
 	experimentalOptions := common.PtrValueOrDefault(options.Experimental)
@@ -81,7 +73,7 @@ func New(options Options) (*Box, error) {
 	if err != nil {
 		return nil, E.Cause(err, "create log factory")
 	}
-	router_, err := route.NewRouter(
+	router, err := route.NewRouter(
 		ctx,
 		logFactory,
 		common.PtrValueOrDefault(options.Route),
@@ -93,7 +85,6 @@ func New(options Options) (*Box, error) {
 	if err != nil {
 		return nil, E.Cause(err, "parse route options")
 	}
-	router := hooks.HookRouter(ctx, router_) //
 	inbounds := make([]adapter.Inbound, 0, len(options.Inbounds))
 	outbounds := make([]adapter.Outbound, 0, len(options.Outbounds))
 	for i, inboundOptions := range options.Inbounds {
@@ -134,19 +125,7 @@ func New(options Options) (*Box, error) {
 			return nil, E.Cause(err, "parse outbound[", i, "]")
 		}
 		outbounds = append(outbounds, out)
-		//
-		if block, ok := out.(*outbound.Block); ok {
-			hk.BlockOut = block
-		}
-		//
 	}
-	//
-	if hk.BlockOut == nil {
-		out, oErr := outbound.New(ctx, router, logFactory.NewLogger("outbound/block"), "block", option.Outbound{Type: "block"})
-		common.Must(oErr)
-		hk.BlockOut = out
-	}
-	//
 	err = router.Initialize(inbounds, outbounds, func() adapter.Outbound {
 		out, oErr := outbound.New(ctx, router, logFactory.NewLogger("outbound/direct"), "direct", option.Outbound{Type: "direct", Tag: "default"})
 		common.Must(oErr)
@@ -190,7 +169,6 @@ func New(options Options) (*Box, error) {
 		preServices:  preServices,
 		postServices: postServices,
 		done:         make(chan struct{}),
-		hk:           hk, //
 	}, nil
 }
 

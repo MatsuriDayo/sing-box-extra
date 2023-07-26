@@ -14,7 +14,6 @@ see distro/all
 ### boxdns
 
 - underlying DNS for Linux & Windows
-- FakeDNS server (Note: The `auth_user` will be set to `fakedns` for fakeIP connections. When must query the real IP (e.g. Wireguard), please add rules containing this attribute to correctly finish the necessary DNS query.)
 
 ### boxbox
 
@@ -29,9 +28,3 @@ Use this instead of `github.com/sagernet/sing-box`
 Custom CLI tools
 
 `boxmain.Create(jsonContent)` creates `boxbox.Box` instead of `box.Box` (used in `nekobox_core`)
-
-### boxroute
-
-Custom Router
-
-It's used if you create `boxbox.Box`

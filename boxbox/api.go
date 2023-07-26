@@ -11,10 +11,6 @@ import (
 	"github.com/sagernet/sing-box/log"
 )
 
-func (s *Box) GetContext() context.Context {
-	return s.hk.Context
-}
-
 func (s *Box) SetLogWritter(w io.Writer) {
 	writer_ := reflect.Indirect(reflect.ValueOf(s.logFactory)).FieldByName("writer")
 	writer_ = reflect.NewAt(writer_.Type(), unsafe.Pointer(writer_.UnsafeAddr())).Elem()
