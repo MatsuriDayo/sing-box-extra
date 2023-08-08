@@ -3,7 +3,7 @@ package boxbox
 import "github.com/sagernet/sing-box/constant"
 
 func init() {
-	constant.Version = Version + "(extra)"
+	constant.Version = Version + "-matsuridayo"
 }
 
-var Version = "1.3.4-1"
+var Version = "1.4.0-b1"

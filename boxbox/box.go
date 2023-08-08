@@ -3,6 +3,7 @@ package boxbox
 import (
 	"context"
 	"fmt"
+	"github.com/sagernet/sing/service/pause"
 	"io"
 	"os"
 	"runtime/debug"
@@ -46,6 +47,7 @@ func New(options Options) (*Box, error) {
 	if ctx == nil {
 		ctx = context.Background()
 	}
+	ctx = pause.ContextWithDefaultManager(ctx)
 
 	createdAt := time.Now()
 	experimentalOptions := common.PtrValueOrDefault(options.Experimental)
