@@ -13,14 +13,6 @@ git checkout "$COMMIT_SING_BOX"
 popd
 
 ####
- if [ ! -d "sing" ]; then
-   git clone --no-checkout https://github.com/arm64v8a/sing.git
- fi
- pushd sing
- git checkout "$COMMIT_SING"
- popd
-
-####
 # if [ ! -d "sing-dns" ]; then
 #   git clone --no-checkout https://github.com/MatsuriDayo/sing-dns.git
 # fi
