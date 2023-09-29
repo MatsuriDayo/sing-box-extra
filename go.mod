@@ -11,7 +11,7 @@ require (
 	github.com/sagernet/sing v0.2.12-0.20230925124400-0531fd63eaba
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.10-0.20230921024525-fc3e4c051ccd
-	github.com/sagernet/sing-tun v0.1.13-0.20230925091515-8adce0ea02a9
+	github.com/sagernet/sing-tun v0.1.13-0.20230926093931-2a0a0ab228fc
 	github.com/spf13/cobra v1.7.0
 	golang.org/x/sys v0.12.0
 	golang.org/x/tools v0.13.0
@@ -86,7 +86,7 @@ require (
 	golang.org/x/text v0.13.0 // indirect
 	golang.org/x/time v0.3.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20230711160842-782d3b101e98 // indirect
-	google.golang.org/grpc v1.58.1 // indirect
+	google.golang.org/grpc v1.58.2 // indirect
 	google.golang.org/protobuf v1.31.0 // indirect
 	lukechampine.com/blake3 v1.2.1 // indirect
 )

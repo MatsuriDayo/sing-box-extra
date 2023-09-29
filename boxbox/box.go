@@ -3,8 +3,6 @@ package boxbox
 import (
 	"context"
 	"fmt"
-	"github.com/sagernet/sing/service"
-	"github.com/sagernet/sing/service/pause"
 	"io"
 	"os"
 	"runtime/debug"
@@ -21,6 +19,8 @@ import (
 	"github.com/sagernet/sing/common"
 	E "github.com/sagernet/sing/common/exceptions"
 	F "github.com/sagernet/sing/common/format"
+	"github.com/sagernet/sing/service"
+	"github.com/sagernet/sing/service/pause"
 )
 
 var _ adapter.Service = (*Box)(nil)
