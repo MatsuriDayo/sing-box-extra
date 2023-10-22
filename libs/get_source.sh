@@ -6,11 +6,20 @@ pushd ..
 
 ####
 if [ ! -d "sing-box" ]; then
-  git clone --no-checkout https://github.com/MatsuriDayo/sing-box.git
+	git clone --no-checkout https://github.com/MatsuriDayo/sing-box.git
 fi
 pushd sing-box
 git fetch --all
 git checkout "$COMMIT_SING_BOX"
+popd
+
+####
+if [ ! -d "sing-quic" ]; then
+	git clone --no-checkout https://github.com/MatsuriDayo/sing-quic.git
+fi
+pushd sing-quic
+git fetch --all
+git checkout "$COMMIT_SING_QUIC"
 popd
 
 ####
@@ -23,7 +32,7 @@ popd
 
 ####
 if [ ! -d "libneko" ]; then
-  git clone --no-checkout https://github.com/MatsuriDayo/libneko.git
+	git clone --no-checkout https://github.com/MatsuriDayo/libneko.git
 fi
 pushd libneko
 git fetch --all

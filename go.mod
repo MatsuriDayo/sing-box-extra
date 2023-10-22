@@ -7,7 +7,7 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/matsuridayo/libneko v1.0.0 // replaced
 	github.com/miekg/dns v1.1.56 // indirect
-	github.com/sagernet/sing v0.2.15-0.20231011041941-e4d9384bcd84
+	github.com/sagernet/sing v0.2.15-0.20231021090846-8002db54c028
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.10
 	github.com/sagernet/sing-tun v0.1.16-0.20231006112722-19cc8b9e81aa
@@ -58,7 +58,7 @@ require (
 	github.com/sagernet/quic-go v0.0.0-20231008035953-32727fef9460 // indirect
 	github.com/sagernet/reality v0.0.0-20230406110435-ee17307e7691 // indirect
 	github.com/sagernet/sing-mux v0.1.3 // indirect
-	github.com/sagernet/sing-quic v0.1.3-0.20231014113629-459406a10fd8 // indirect
+	github.com/sagernet/sing-quic v1.0.0 // indirect
 	github.com/sagernet/sing-shadowsocks v0.2.5 // indirect
 	github.com/sagernet/sing-shadowsocks2 v0.1.4 // indirect
 	github.com/sagernet/sing-shadowtls v0.1.4 // indirect
@@ -91,5 +91,7 @@ require (
 replace github.com/matsuridayo/libneko => ../libneko
 
 replace github.com/sagernet/sing-box => ../sing-box
+
+replace github.com/sagernet/sing-quic => ../sing-quic
 
 // replace github.com/sagernet/sing-dns v1.0.0 => ../sing-dns
