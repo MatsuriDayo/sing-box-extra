@@ -10,10 +10,10 @@ require (
 	github.com/sagernet/sing v0.2.15-0.20231021090846-8002db54c028
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.10
-	github.com/sagernet/sing-tun v0.1.16-0.20231006112722-19cc8b9e81aa
+	github.com/sagernet/sing-tun v0.1.16-0.20231022145846-fe9891a78413
 	github.com/spf13/cobra v1.7.0
 	golang.org/x/sys v0.13.0
-	golang.org/x/tools v0.13.0
+	golang.org/x/tools v0.13.0 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20230429144221-925a1e7659e6
 )
 
@@ -24,7 +24,7 @@ require (
 	github.com/caddyserver/certmagic v0.19.2 // indirect
 	github.com/cloudflare/circl v1.3.3 // indirect
 	github.com/cretz/bine v0.2.0 // indirect
-	github.com/fsnotify/fsnotify v1.6.0 // indirect
+	github.com/fsnotify/fsnotify v1.7.0 // indirect
 	github.com/go-chi/chi/v5 v5.0.10 // indirect
 	github.com/go-chi/cors v1.2.1 // indirect
 	github.com/go-chi/render v1.0.3 // indirect
