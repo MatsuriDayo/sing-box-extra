@@ -13,7 +13,7 @@ require (
 	github.com/sagernet/sing-tun v0.1.17-0.20231026060825-efd9884154a6
 	github.com/spf13/cobra v1.7.0
 	golang.org/x/sys v0.13.0
-	golang.org/x/tools v0.14.0
+	golang.org/x/tools v0.14.0 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20230429144221-925a1e7659e6
 )
 
