@@ -7,12 +7,12 @@ require (
 	github.com/gofrs/uuid/v5 v5.0.0
 	github.com/matsuridayo/libneko v1.0.0 // replaced
 	github.com/miekg/dns v1.1.56 // indirect
-	github.com/sagernet/sing v0.2.16-0.20231028125948-afcc9cb766c2
+	github.com/sagernet/sing v0.2.18-0.20231108041402-4fbbd193203c
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.10
-	github.com/sagernet/sing-tun v0.1.17-0.20231030120513-2e85725657c1
-	github.com/spf13/cobra v1.7.0
-	golang.org/x/sys v0.13.0
+	github.com/sagernet/sing-tun v0.1.20-0.20231107141025-be3aecff893d
+	github.com/spf13/cobra v1.8.0
+	golang.org/x/sys v0.14.0
 	golang.org/x/tools v0.14.0 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20230429144221-925a1e7659e6
 )
@@ -59,7 +59,7 @@ require (
 	github.com/sagernet/netlink v0.0.0-20220905062125-8043b4a9aa97 // indirect
 	github.com/sagernet/quic-go v0.0.0-20231008035953-32727fef9460 // indirect
 	github.com/sagernet/reality v0.0.0-20230406110435-ee17307e7691 // indirect
-	github.com/sagernet/sing-mux v0.1.3 // indirect
+	github.com/sagernet/sing-mux v0.1.4-0.20231108041445-f9497babe3d5 // indirect
 	github.com/sagernet/sing-quic v1.0.0 // indirect
 	github.com/sagernet/sing-shadowsocks v0.2.5 // indirect
 	github.com/sagernet/sing-shadowsocks2 v0.1.4 // indirect
