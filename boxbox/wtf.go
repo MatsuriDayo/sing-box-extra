@@ -7,7 +7,7 @@ import (
 
 func (s *Box) closeClashApi() error {
 	if c, ok := s.router.ClashServer().(*clashapi.Server); ok {
-		return c.StopServer()
+		return c.Close()
 	}
 	return nil
 }
