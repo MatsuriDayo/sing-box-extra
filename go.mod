@@ -10,7 +10,7 @@ require (
 	github.com/sagernet/sing v0.2.17
 	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.10
-	github.com/sagernet/sing-tun v0.1.20-0.20231113053348-91024284375c
+	github.com/sagernet/sing-tun v0.1.20-0.20231116102114-958d6a25a41d
 	github.com/spf13/cobra v1.8.0
 	golang.org/x/sys v0.14.0
 	golang.org/x/tools v0.14.0
