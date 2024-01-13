@@ -67,12 +67,11 @@ func New(options Options) (*Box, error) {
 		defaultLogWriter = io.Discard
 	}
 	logFactory, err := log.New(log.Options{
-		Context:        ctx,
-		Options:        common.PtrValueOrDefault(options.Log),
-		Observable:     needClashAPI,
-		DefaultWriter:  defaultLogWriter,
-		BaseTime:       createdAt,
-		PlatformWriter: options.PlatformInterface,
+		Context:       ctx,
+		Options:       common.PtrValueOrDefault(options.Log),
+		Observable:    needClashAPI,
+		DefaultWriter: defaultLogWriter,
+		BaseTime:      createdAt,
 	})
 	if err != nil {
 		return nil, E.Cause(err, "create log factory")

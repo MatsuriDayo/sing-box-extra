@@ -2,6 +2,8 @@ package boxmain
 
 import (
 	"context"
+	"github.com/sagernet/sing/common/json"
+	"github.com/sagernet/sing/common/json/badjson"
 	"io"
 	"os"
 	"os/signal"
@@ -14,7 +16,6 @@ import (
 
 	"github.com/matsuridayo/libneko/protect_server"
 	"github.com/matsuridayo/sing-box-extra/boxbox"
-	"github.com/sagernet/sing-box/common/badjsonmerge"
 	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	E "github.com/sagernet/sing/common/exceptions"
@@ -111,13 +112,21 @@ func readConfigAndMerge() (option.Options, error) {
 	if len(optionsList) == 1 {
 		return optionsList[0].options, nil
 	}
-	var mergedOptions option.Options
+
+	var mergedMessage json.RawMessage
 	for _, options := range optionsList {
-		mergedOptions, err = badjsonmerge.MergeOptions(options.options, mergedOptions)
+		mergedMessage, err = badjson.MergeJSON(options.options.RawMessage, mergedMessage)
 		if err != nil {
 			return option.Options{}, E.Cause(err, "merge config at ", options.path)
 		}
 	}
+
+	var mergedOptions option.Options
+	err = mergedOptions.UnmarshalJSON(mergedMessage)
+	if err != nil {
+		return option.Options{}, E.Cause(err, "unmarshal merged config")
+	}
+
 	return mergedOptions, nil
 }
 
@@ -211,4 +220,25 @@ func closeMonitor(ctx context.Context) {
 	default:
 	}
 	log.Fatal("sing-box did not close!")
+}
+
+func MergeOptions(source option.Options, destination option.Options) (option.Options, error) {
+	rawSource, err := json.Marshal(source)
+	if err != nil {
+		return option.Options{}, E.Cause(err, "marshal source")
+	}
+	rawDestination, err := json.Marshal(destination)
+	if err != nil {
+		return option.Options{}, E.Cause(err, "marshal destination")
+	}
+	rawMerged, err := badjson.MergeJSON(rawSource, rawDestination)
+	if err != nil {
+		return option.Options{}, E.Cause(err, "merge options")
+	}
+	var merged option.Options
+	err = json.Unmarshal(rawMerged, &merged)
+	if err != nil {
+		return option.Options{}, E.Cause(err, "unmarshal merged options")
+	}
+	return merged, nil
 }

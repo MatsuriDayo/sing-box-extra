@@ -2,10 +2,10 @@ package boxmain
 
 import (
 	"bytes"
+	"github.com/sagernet/sing/common/json"
 	"os"
 	"path/filepath"
 
-	"github.com/sagernet/sing-box/common/json"
 	"github.com/sagernet/sing-box/log"
 	"github.com/sagernet/sing-box/option"
 	E "github.com/sagernet/sing/common/exceptions"

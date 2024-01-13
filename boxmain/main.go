@@ -1,6 +1,7 @@
 package boxmain
 
 import (
+	"github.com/sagernet/sing-box/option"
 	"os"
 	"time"
 
@@ -42,7 +43,8 @@ func Main() {
 
 func preRun(cmd *cobra.Command, args []string) {
 	if disableColor {
-		log.SetStdLogger(log.NewFactory(log.Formatter{BaseTime: time.Now(), DisableColors: true}, os.Stderr, nil).Logger())
+		factory, _ := log.New(log.Options{Options: option.LogOptions{Output: "stderr", DisableColor: true}, BaseTime: time.Now()})
+		log.SetStdLogger(factory.Logger())
 	}
 	if workingDir != "" {
 		_, err := os.Stat(workingDir)

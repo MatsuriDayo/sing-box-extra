@@ -1,7 +1,7 @@
 package boxmain
 
 import (
-	"os"
+	"github.com/sagernet/sing-box/option"
 	"time"
 
 	"github.com/sagernet/sing-box/log"
@@ -9,5 +9,6 @@ import (
 
 func DisableColor() {
 	disableColor = true
-	log.SetStdLogger(log.NewFactory(log.Formatter{BaseTime: time.Now(), DisableColors: true}, os.Stderr, nil).Logger())
+	factory, _ := log.New(log.Options{Options: option.LogOptions{Output: "stderr", DisableColor: disableColor}, BaseTime: time.Now()})
+	log.SetStdLogger(factory.Logger())
 }
