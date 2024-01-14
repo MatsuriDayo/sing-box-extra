@@ -4,12 +4,12 @@ package boxmain
 
 import (
 	"encoding/json"
+	"github.com/sagernet/sing/common/json/badjson"
 	"net/http"
 	_ "net/http/pprof"
 	"runtime"
 	"runtime/debug"
 
-	"github.com/sagernet/sing-box/common/badjson"
 	"github.com/sagernet/sing-box/log"
 
 	"github.com/dustin/go-humanize"
