@@ -223,7 +223,11 @@ func (s *Box) preStart() error {
 			}
 		}
 	}
-	err := s.startOutbounds()
+	err := s.router.PreStart()
+	if err != nil {
+		return E.Cause(err, "pre-start router")
+	}
+	err = s.startOutbounds()
 	if err != nil {
 		return err
 	}
