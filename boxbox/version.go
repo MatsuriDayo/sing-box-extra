@@ -6,4 +6,4 @@ func init() {
 	constant.Version = Version + "-matsuridayo"
 }
 
-var Version = "1.8.0"
+var Version = "1.8.14"
