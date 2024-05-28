@@ -259,7 +259,7 @@ func (s *Box) start() error {
 			return E.Cause(err, "initialize inbound/", in.Type(), "[", tag, "]")
 		}
 	}
-	return nil
+	return s.postStart()
 }
 
 func (s *Box) postStart() error {
