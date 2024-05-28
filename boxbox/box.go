@@ -49,7 +49,7 @@ func New(options Options) (*Box, error) {
 		ctx = context.Background()
 	}
 	ctx = service.ContextWithDefaultRegistry(ctx)
-	ctx = pause.ContextWithDefaultManager(ctx)
+	ctx = pause.WithDefaultManager(ctx)
 
 	createdAt := time.Now()
 	experimentalOptions := common.PtrValueOrDefault(options.Experimental)
