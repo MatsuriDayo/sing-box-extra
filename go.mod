@@ -1,20 +1,25 @@
 module github.com/matsuridayo/sing-box-extra
 
-go 1.19
+go 1.21.0
+
+toolchain go1.22.3
 
 require (
 	github.com/dustin/go-humanize v1.0.1
-	github.com/gofrs/uuid/v5 v5.1.0
-	github.com/matsuridayo/libneko v1.0.0 // replaced
+	github.com/gofrs/uuid/v5 v5.2.0
 	github.com/miekg/dns v1.1.59 // indirect
 	github.com/sagernet/sing v0.3.8
-	github.com/sagernet/sing-box v1.0.0 // replaced
 	github.com/sagernet/sing-dns v0.1.14
 	github.com/sagernet/sing-tun v0.2.7
 	github.com/spf13/cobra v1.8.0
-	golang.org/x/sys v0.19.0
-	golang.org/x/tools v0.20.0 // indirect
+	golang.org/x/sys v0.20.0
+	golang.org/x/tools v0.21.0 // indirect
 	golang.zx2c4.com/wireguard/wgctrl v0.0.0-20230429144221-925a1e7659e6
+)
+
+require (
+	github.com/matsuridayo/libneko v0.0.0-20230913024055-5277a5bfc889
+	github.com/sagernet/sing-box v1.8.14
 )
 
 require (
@@ -58,7 +63,7 @@ require (
 	github.com/sagernet/quic-go v0.40.1 // indirect
 	github.com/sagernet/reality v0.0.0-20230406110435-ee17307e7691 // indirect
 	github.com/sagernet/sing-mux v0.2.0 // indirect
-	github.com/sagernet/sing-quic v1.0.0 // indirect
+	github.com/sagernet/sing-quic v0.1.15 // indirect
 	github.com/sagernet/sing-shadowsocks v0.2.6 // indirect
 	github.com/sagernet/sing-shadowsocks2 v0.2.0 // indirect
 	github.com/sagernet/sing-shadowtls v0.1.4 // indirect
@@ -75,23 +80,15 @@ require (
 	go.uber.org/multierr v1.11.0 // indirect
 	go.uber.org/zap v1.27.0 // indirect
 	go4.org/netipx v0.0.0-20231129151722-fdeea329fbba // indirect
-	golang.org/x/crypto v0.22.0 // indirect
+	golang.org/x/crypto v0.23.0 // indirect
 	golang.org/x/exp v0.0.0-20240416160154-fe59bbe5cc7f // indirect
 	golang.org/x/mod v0.17.0 // indirect
-	golang.org/x/net v0.24.0 // indirect
+	golang.org/x/net v0.25.0 // indirect
 	golang.org/x/sync v0.7.0 // indirect
-	golang.org/x/text v0.14.0 // indirect
+	golang.org/x/text v0.15.0 // indirect
 	golang.org/x/time v0.5.0 // indirect
 	google.golang.org/genproto/googleapis/rpc v0.0.0-20240227224415-6ceb2ff114de // indirect
 	google.golang.org/grpc v1.63.2 // indirect
 	google.golang.org/protobuf v1.33.0 // indirect
 	lukechampine.com/blake3 v1.2.1 // indirect
 )
-
-replace github.com/matsuridayo/libneko => ../libneko
-
-replace github.com/sagernet/sing-box => ../sing-box
-
-replace github.com/sagernet/sing-quic => ../sing-quic
-
-// replace github.com/sagernet/sing-dns v1.0.0 => ../sing-dns
