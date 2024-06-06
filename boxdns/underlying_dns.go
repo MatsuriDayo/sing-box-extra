@@ -41,7 +41,7 @@ type myTransportHandler struct {
 	dialer N.Dialer
 }
 
-func (t *myTransportHandler) DialContext(ctx context.Context, queryCtx context.Context) (net.Conn, error) {
+func (t *myTransportHandler) DialContext(ctx context.Context) (net.Conn, error) {
 	if underlyingDNS == "" {
 		return nil, errors.New("no underlyingDNS")
 	}
